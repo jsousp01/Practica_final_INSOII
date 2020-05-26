@@ -1,0 +1,6 @@
+EJB\PersonaFacadeLocal.class
+EJB\AbstractFacade.class
+Entity\Persona.class
+Entity\Persona_.class
+Controller\managedPersona.class
+EJB\PersonaFacade.class
