@@ -22,28 +22,26 @@ import javax.persistence.Table;
  * @author Jose
  */
 @Entity
-@Table(name = "juguete")
-public class Juguete implements Serializable {
+@Table(name = "material")
+public class Material implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idJuguete;
+    private int idMaterial;
     @Column(name = "Nombre")
     private String nombre;
-    @JoinColumn(name="IdPersona")
-    @ManyToOne(cascade=CascadeType.PERSIST)
-    private Persona persona;
     @Column(name = "Cantidad")
     private int cantidad;
-    @Column(name = "Descripcion")
-    private String descripcion;
+    @JoinColumn(name="IdJuguete")
+    @ManyToOne(cascade=CascadeType.PERSIST)
+    private Juguete idJuguete;
 
-    public int getIdJuguete() {
-        return idJuguete;
+    public int getIdMaterial() {
+        return idMaterial;
     }
 
-    public void setIdJuguete(int idJuguete) {
-        this.idJuguete = idJuguete;
+    public void setIdMaterial(int idMaterial) {
+        this.idMaterial = idMaterial;
     }
 
     public String getNombre() {
@@ -54,14 +52,6 @@ public class Juguete implements Serializable {
         this.nombre = nombre;
     }
 
-    public Persona getPersona() {
-        return persona;
-    }
-
-    public void setPersona(Persona persona) {
-        this.persona = persona;
-    }
-
     public int getCantidad() {
         return cantidad;
     }
@@ -70,18 +60,18 @@ public class Juguete implements Serializable {
         this.cantidad = cantidad;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public Juguete getIdJuguete() {
+        return idJuguete;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setIdJuguete(Juguete idJuguete) {
+        this.idJuguete = idJuguete;
     }
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 97 * hash + this.idJuguete;
+        int hash = 3;
+        hash = 29 * hash + this.idMaterial;
         return hash;
     }
 
@@ -96,18 +86,16 @@ public class Juguete implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Juguete other = (Juguete) obj;
-        if (this.idJuguete != other.idJuguete) {
+        final Material other = (Material) obj;
+        if (this.idMaterial != other.idMaterial) {
             return false;
         }
         return true;
     }
-    
+
     @Override
     public String toString() {
-        return "Juguete{" + "idJuguete=" + idJuguete + '}';
+        return "Material{" + "idMaterial=" + idMaterial + '}';
     }
-
-   
     
 }
