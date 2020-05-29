@@ -3,12 +3,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+>
     
     <h:head>
-        <title>Administrador</title>
+        <title>Vista Administrador</title>
     </h:head>
-    <h:body>
+    
         <p:growl id="msj" />
         <h:form id="nuevoUser">
                 <p:panelGrid columns="1">
@@ -16,6 +16,7 @@
                 </p:panelGrid>
         </h:form>
         
+        <!--Cuadro para insertar un nuevo usuario en el sistema--> 
         <p:dialog widgetVar="mostrar" header="Datos del Usuario" modal="true" showEffect="clip" resizable="false">
             <p:ajax event="close" listener="#{managedPersona.limpiar()}" update="valor" />
             <h:form id="valor">
@@ -88,22 +89,31 @@
             </p:panelGrid>
         </h:form>
         
+<!--Cuadro para crear un nuevo modelo de juguete--> 
         <p:dialog widgetVar="mostrar2" header="Datos del Juguete" modal="true" showEffect="clip" resizable="false">
             <p:ajax event="close" listener="#{managedJuguete.limpiar()}" update="valor2" />
             <h:form id="valor2">
                 <p:panelGrid columns="2">
                     <p:outputLabel value="Ingrese Nombre" />
                     <p:inputText value="#{managedJuguete.juguete.nombre}" />
-                    <p:outputLabel value="Ingrese Cantidad" />
-                    <p:inputText value="#{managedJuguete.juguete.cantidad}" />
                     <p:outputLabel value="Ingrese Descripción" />
                     <p:inputText value="#{managedJuguete.juguete.descripcion}" />
                     <p:commandButton value="Guardar" actionListener="#{managedJuguete.guardar()}" 
                         rendered="#{managedJuguete.juguete.idJuguete == 0}"
                         update=":Datos2 valor2 :msj" oncomplete="PF('mostrar2').hide();" />
-                    <p:commandButton value="Actualizar" actionListener="#{managedJuguete.actualizar()}" 
-                        rendered="#{managedJuguete.juguete.idJuguete != 0}"
-                        update=":Datos2 valor2 :msj" oncomplete="PF('mostrar2').hide();" />
+                </p:panelGrid>
+            </h:form>
+        </p:dialog>
+
+<!--Cuadro para solicitar o distrubuir juguetes--> 
+        <p:dialog widgetVar="mostrar3" header="Seleccione una acción" modal="true" showEffect="clip" resizable="false">
+            <p:ajax event="close" listener="#{managedJuguete.limpiar()}" update="valor3" />
+            <h:form id="valor3">
+                <p:panelGrid columns="2">
+                    <p:outputLabel value="Ingrese Cantidad" />
+                    <p:inputText value="#{managedJuguete.juguete.cantidad}" />
+                    <p:commandButton value="Solicitar Juguete" oncomplete="PF('mostrar3').hide();" />
+                    <p:commandButton value="Distribuir" oncomplete="PF('mostrar3').hide();" />
                 </p:panelGrid>
             </h:form>
         </p:dialog>
@@ -124,9 +134,9 @@
                     <p:column headerText="Descripción">
                         <h:outputText value="#{d.descripcion}" />
                     </p:column>
-                    <p:column style="width:160px;" headerText="Actualizar Datos">
-                    <p:commandButton value="Actualizar" actionListener="#{managedJuguete.cargarID(d)}" 
-                        oncomplete="PF('mostrar2').show();" update=":valor2" />
+                    <p:column style="width:160px;" headerText="Solicitar/Distribuir">
+                    <p:commandButton value="Enviar Tarea" actionListener="#{managedJuguete.cargarID(d)}" 
+                        oncomplete="PF('mostrar3').show();" />
                     </p:column>
                     <p:column style="width:160px;" headerText="Eliminar Juguete">
                     <p:commandButton value="Eliminar" actionListener="#{managedJuguete.eliminar(d)}" 
@@ -140,44 +150,68 @@
         
 <!--ey-->            
 
-        <h:form id="nuevo3">
+        <h:form id="nuevo4">
             <p:panelGrid columns="1">
-            <p:commandButton value="Nuevo Usuario" oncomplete="PF('mostrar').show();" />
+            <p:commandButton value="Nuevo Material" oncomplete="PF('mostrar4').show();" />
             </p:panelGrid>
         </h:form>
+
+<!--Cuadro para añadir materiales nuevos--> 
+        <p:dialog widgetVar="mostrar4" header="Datos del Material" modal="true" showEffect="clip" resizable="false">
+            <p:ajax event="close" listener="#{managedMaterial.limpiar()}" update="valor4" />
+            <h:form id="valor4">
+                <p:panelGrid columns="2">
+                    <p:outputLabel value="Ingrese Nombre" />
+                    <p:inputText value="#{managedMaterial.material.nombre}" />
+                    <p:outputLabel value="Ingrese Cantidad" />
+                    <p:inputText value="#{managedMaterial.material.cantidad}" />
+                    <p:commandButton value="Guardar" actionListener="#{managedMaterial.guardar()}" 
+                        rendered="#{managedMaterial.material.idMaterial == 0}"
+                        update=":Datos4 valor4 :msj" oncomplete="PF('mostrar4').hide();" />
+                </p:panelGrid>
+            </h:form>
+        </p:dialog>
+
+<!--Cuadro para añadir más cantidad de materiales--> 
+        <p:dialog widgetVar="mostrar5" header="Cantidad del Material" modal="true" showEffect="clip" resizable="false">
+            <p:ajax event="close" listener="#{managedMaterial.limpiar()}" update="valor5" />
+            <h:form id="valor5">
+                <p:panelGrid columns="2">
+                    <p:outputLabel value="Ingrese Cantidad" />
+                    <p:inputText value="#{managedMaterial.material.cantidad}" />
+                    <p:commandButton value="Actualizar" actionListener="#{managedMaterial.actualizar()}" 
+                        update=":Datos4 valor4 :msj" oncomplete="PF('mostrar5').hide();" />
+
+                </p:panelGrid>
+            </h:form>
+        </p:dialog>
+        
         <br />
         
-        <h:form id="Datos3">
-            <p:fieldset legend="Datos Usuarios" toggleable="true">
-                <p:dataTable value="#{managedPersona.listaPersona}" var="c">
-                    <p:column headerText="Id">
-                        <h:outputText value="#{c.idPersona}" />
+        <h:form id="Datos4">
+            <p:fieldset style="width:1030px;" legend="Datos Materiales" toggleable="true">
+                <p:dataTable style="width:1025px;" value="#{managedMaterial.listaMaterial}" var="e">
+                    <p:column style="width:70px;" headerText="Id">
+                        <h:outputText value="#{e.idMaterial}" />
                     </p:column>
-                    <p:column headerText="Nombre">
-                        <h:outputText value="#{c.nombre}" />
+                    <p:column style="width:450px;" headerText="Nombre">
+                        <h:outputText value="#{e.nombre}" />
                     </p:column>
-                    <p:column headerText="Apellido1">
-                        <h:outputText value="#{c.apellido1}" />
+                    <p:column style="width:75px;" headerText="Cantidad">
+                        <h:outputText value="#{e.cantidad}" />
                     </p:column>
-                    <p:column headerText="email">
-                        <h:outputText value="#{c.email}" />
+                    <p:column style="width:160px;" headerText="Añadir Material">
+                    <p:commandButton value="Añadir" actionListener="#{managedMaterial.cargarID(e)}" 
+                        oncomplete="PF('mostrar5').show();" update=":valor" />
                     </p:column>
-                    <p:column headerText="DNI">
-                        <h:outputText value="#{c.DNI}">
-                        </h:outputText>
-                    </p:column>
-                    <p:column headerText="Eliminar">
-                        <p:commandButton value="Eliminar" actionListener="#{managedPersona.eliminar(c)}" 
-                                         update="Datos :msj" />
-                    </p:column>
-                    <p:column headerText="Actualizar">
-                        <p:commandButton value="Actualizar" actionListener="#{managedPersona.cargarID(c)}" 
-                                         oncomplete="PF('mostrar').show();" update=":valor" />
+                    <p:column style="width:160px;" headerText="Eliminar Material">
+                    <p:commandButton value="Eliminar" actionListener="#{managedMaterial.eliminar(e)}" 
+                        update="Datos4 :msj" />
                     </p:column>
                 </p:dataTable>
             </p:fieldset>
         </h:form>
-        
-    </h:body>
+      
+    
 </html>
 

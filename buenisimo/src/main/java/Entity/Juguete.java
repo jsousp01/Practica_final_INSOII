@@ -30,9 +30,6 @@ public class Juguete implements Serializable {
     private int idJuguete;
     @Column(name = "Nombre")
     private String nombre;
-    @JoinColumn(name="IdPersona")
-    @ManyToOne(cascade=CascadeType.PERSIST)
-    private Persona persona;
     @Column(name = "Cantidad")
     private int cantidad;
     @Column(name = "Descripcion")
@@ -52,14 +49,6 @@ public class Juguete implements Serializable {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public Persona getPersona() {
-        return persona;
-    }
-
-    public void setPersona(Persona persona) {
-        this.persona = persona;
     }
 
     public int getCantidad() {
