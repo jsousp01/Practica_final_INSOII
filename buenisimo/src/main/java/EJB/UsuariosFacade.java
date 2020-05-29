@@ -6,9 +6,11 @@
 package EJB;
 
 import Entity.Usuarios;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -28,5 +30,19 @@ public class UsuariosFacade extends AbstractFacade<Usuarios> implements Usuarios
     public UsuariosFacade() {
         super(Usuarios.class);
     }
-    
+
+    @Override
+    public Usuarios verificarUsuario(Usuarios us) {
+        Usuarios usuario = null;
+        String consulta = "SELECT u FROM Usuarios u WHERE u.usuario=?1 and u.contrasena=?2";
+        Query query = em.createQuery(consulta);
+        query.setParameter(1, us.getUsuario());
+        query.setParameter(2, us.getContrasena());
+        List<Usuarios> lista = query.getResultList();
+        if (!lista.isEmpty()) {
+            usuario = lista.get(0);
+        }
+        return usuario;
+    }
+
 }

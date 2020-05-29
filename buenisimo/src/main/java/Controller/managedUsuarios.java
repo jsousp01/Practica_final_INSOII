@@ -12,14 +12,14 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
 /**
  *
  * @author Anto
  */
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class managedUsuarios implements Serializable {
     
     @EJB
@@ -47,6 +47,18 @@ public class managedUsuarios implements Serializable {
     @PostConstruct
     public void init() {
         this.usuario = new Usuarios(); 
+    }
+    
+    public String validar(){
+        String ruta = "";
+        Usuarios login;
+        login = this.usuariosFacade.verificarUsuario(this.usuario);
+           if(login != null) {
+               ruta = "privado/trabajador/vistaTrabajador";
+           } else {
+               ruta = "error";
+           }
+    return ruta;
     }
     
 }

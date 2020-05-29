@@ -8,69 +8,20 @@
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        <p:growl id="msj" />
-        <h:form id="nuevo">
-            <p:fieldset legend="Nuevo Usuario" toggleable="true">
-                <p:panelGrid columns="1">
-                    <p:commandButton value="Nuevo Usuario" oncomplete="PF('mostrar').show();" />
-                </p:panelGrid>
-            </p:fieldset>
-        </h:form>
-        <p:dialog widgetVar="mostrar" header="Datos" modal="true" showEffect="clip" resizable="false">
-            <p:ajax event="close" listener="#{managedPersona.limpiar()}" update="valor" />
-            <h:form id="valor">
+        <p:growl id="growl" />
+
+        <h:form id="Login">
+            <p:fieldset legend="Login">
                 <p:panelGrid columns="2">
-                    <p:outputLabel value="Ingrese Nombre" />
-                    <p:inputText value="#{managedPersona.persona.nombre}" />
-                    <p:outputLabel value="Ingrese Primer Apellido" />
-                    <p:inputText value="#{managedPersona.persona.apellido1}" />
-                    <p:outputLabel value="Ingrese Segundo Apellido" />
-                    <p:inputText value="#{managedPersona.persona.apellido2}" />
-                    <p:outputLabel value="Ingrese DNI" />
-                    <p:inputText value="#{managedPersona.persona.DNI}" />
-                    <p:outputLabel value="Ingrese email" />
-                    <p:inputText value="#{managedPersona.persona.email}" />
-                    <p:outputLabel value="Ingrese Fecha de Nacimiento" />
-                    <p:calendar value="#{managedPersona.persona.fechaNacimiento}" />
-                    <p:commandButton value="Guardar" actionListener="#{managedPersona.guardar()}" 
-                                     rendered="#{managedPersona.persona.idPersona == 0}"
-                                     update=":Datos valor :msj" oncomplete="PF('mostrar').hide();" />
-                    <p:commandButton value="Actualizar" actionListener="#{managedPersona.actualizar()}" 
-                                     rendered="#{managedPersona.persona.idPersona != 0}"
-                                     update=":Datos valor :msj" oncomplete="PF('mostrar').hide();" />
+                    <p:outputLabel for="txtUsuario" value="Usuario"/>
+                    <p:inputText id="txtUsuario" required="true" value="#{managedUsuarios.usuario.usuario}"/>
+                    <p:outputLabel for="txtContra" value="Contrasena"/>
+                    <p:password id="txtContra" required="true" value="#{managedUsuarios.usuario.contrasena}"/>
+                    <p:column />
+                    <p:commandButton value="Ingresar" action="#{managedUsuarios.validar()}" 
+                                     update = ":Login"/>    
                 </p:panelGrid>
-            </h:form>
-        </p:dialog>
-        <h:form id="Datos">
-            <p:fieldset legend="Datos Usuarios" toggleable="true">
-                <p:dataTable value="#{managedPersona.listaPersona}" var="c">
-                    <p:column headerText="Id">
-                        <h:outputText value="#{c.idPersona}" />
-                    </p:column>
-                    <p:column headerText="Nombre">
-                        <h:outputText value="#{c.nombre}" />
-                    </p:column>
-                    <p:column headerText="Apellido1">
-                        <h:outputText value="#{c.apellido1}" />
-                    </p:column>
-                    <p:column headerText="Apellido2">
-                        <h:outputText value="#{c.apellido2}" />
-                    </p:column>
-                    <p:column headerText="DNI">
-                        <h:outputText value="#{c.DNI}">
-                        </h:outputText>
-                    </p:column>
-                    <p:column headerText="Eliminar">
-                        <p:commandButton value="Eliminar" actionListener="#{managedPersona.eliminar(c)}" 
-                                         update="Datos :msj" />
-                    </p:column>
-                    <p:column headerText="Actualizar">
-                        <p:commandButton value="Actualizar" actionListener="#{managedPersona.cargarID(c)}" 
-                                         oncomplete="PF('mostrar').show();" update=":valor" />
-                    </p:column>
-                </p:dataTable>
             </p:fieldset>
         </h:form>
     </h:body>
 </html>
-
