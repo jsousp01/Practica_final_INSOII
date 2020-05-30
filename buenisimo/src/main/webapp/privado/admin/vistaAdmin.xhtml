@@ -3,12 +3,24 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
->
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     
     <h:head>
-        <title>Vista Administrador</title>
+        <title>Página Administrador - TOYX</title>
+        
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="./css/default.css"/>
+        <h:outputStylesheet name="./css/cssLayout.css"/>
     </h:head>
     
+    <h:body>
+        <div id="top">
+            <ui:insert name="top"><strong>Toy-X</strong></ui:insert>
+        </div>
+        
+        <div id="content" class="center_content">
+            <ui:insert name="content">Tablas</ui:insert>
+        
         <p:growl id="msj" />
         <h:form id="nuevoUser">
                 <p:panelGrid columns="1">
@@ -211,7 +223,13 @@
                 </p:dataTable>
             </p:fieldset>
         </h:form>
-      
+        </div>
+        
+        <div id="bottom">
+            <ui:insert name="bottom">Ingeniería del Software II ULE - Página creada por acades00 y jsousp00</ui:insert>
+        </div>
+        
+    </h:body>
     
 </html>
 
