@@ -14,11 +14,11 @@
             <p:fieldset legend="Login">
                 <p:panelGrid columns="2">
                     <p:outputLabel for="txtUsuario" value="Usuario"/>
-                    <p:inputText id="txtUsuario" required="true" value="#{managedUsuarios.usuario.usuario}"/>
+                    <p:inputText id="txtUsuario" required="true" value="#{usuariosController.usuario.usuario}"/>
                     <p:outputLabel for="txtContra" value="Contrasena"/>
-                    <p:password id="txtContra" required="true" value="#{managedUsuarios.usuario.contrasena}"/>
+                    <p:password id="txtContra" required="true" value="#{usuariosController.usuario.contrasena}"/>
                     <p:column />
-                    <p:commandButton value="Ingresar" action="#{managedUsuarios.validar()}" 
+                    <p:commandButton value="Ingresar" action="#{usuariosController.validar()}" 
                                      update = ":Login"/>    
                 </p:panelGrid>
             </p:fieldset>

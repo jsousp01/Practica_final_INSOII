@@ -5,14 +5,14 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Vista Trabajador</title>
     </h:head>
     <h:body>
         <p:growl id="msj" />
 
         <h:form id="Tareas">
             <p:fieldset legend="Tareas Pendientes" toggleable="true">
-                <p:dataTable value="#{managedTareas.listaTareas}" var="c">
+                <p:dataTable value="#{tareasController.listaTareas}" var="c">
                     <p:column headerText="Tarea">
                         <h:outputText value="#{c.idTarea}" />
                     </p:column>
@@ -35,11 +35,11 @@
 
         <h:form id="Cuenta">
             <p:fieldset legend="Detalles del Usuario" toggleable="true">
-                <p:dataTable value="#{managedUsuarios.listaUsuarios}" var="c">
-                    <p:column headerText="Tarea">
+                <p:dataTable value="#{usuariosController.listaUsuarios}" var="c">
+                    <p:column headerText="Nombre de Usuario">
                         <h:outputText value="#{c.usuario}" />
                     </p:column>
-                    <p:column headerText="Id Juguete">
+                    <p:column headerText="Contrasena">
                         <h:outputText value="#{c.contrasena}" />
                     </p:column>
                 </p:dataTable>

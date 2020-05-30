@@ -22,7 +22,7 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean
 @SessionScoped
-public class managedPersona implements Serializable{
+public class PersonaController implements Serializable{
     
     @EJB
     private PersonaFacadeLocal personaFacade;

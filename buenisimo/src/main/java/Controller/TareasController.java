@@ -23,7 +23,7 @@ import javax.faces.context.FacesContext;
 
 @ManagedBean
 @SessionScoped
-public class managedTareas implements Serializable {
+public class TareasController implements Serializable {
     
     @EJB
     private TareasFacadeLocal tareasFacade;

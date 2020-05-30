@@ -6,6 +6,8 @@
 package Controller;
 
 import EJB.UsuariosFacadeLocal;
+import Entity.Persona;
+import Entity.Roles;
 import Entity.Usuarios;
 import java.io.Serializable;
 import java.util.List;
@@ -20,15 +22,17 @@ import javax.faces.bean.ViewScoped;
  */
 @ManagedBean
 @ViewScoped
-public class managedUsuarios implements Serializable {
+public class RolesController implements Serializable{
     
     @EJB
-    private UsuariosFacadeLocal usuariosFacade;
+    private UsuariosFacadeLocal usuarioFacade;
     private List<Usuarios> listaUsuarios;
     private Usuarios usuario;
+    private Persona persona;
+    private Roles rol;
 
     public List<Usuarios> getListaUsuarios() {
-        this.listaUsuarios = this.usuariosFacade.findAll();
+        this.listaUsuarios = this.usuarioFacade.findAll();
         return listaUsuarios;
     }
 
@@ -43,22 +47,27 @@ public class managedUsuarios implements Serializable {
     public void setUsuario(Usuarios usuario) {
         this.usuario = usuario;
     }
+
+    public Persona getPersona() {
+        return persona;
+    }
+
+    public void setPersona(Persona persona) {
+        this.persona = persona;
+    }
+
+    public Roles getRol() {
+        return rol;
+    }
+
+    public void setRol(Roles rol) {
+        this.rol = rol;
+    }
     
     @PostConstruct
     public void init() {
-        this.usuario = new Usuarios(); 
+        this.persona = new Persona();
+        this.rol = new Roles();
+        this.usuario = new Usuarios();
     }
-    
-    public String validar(){
-        String ruta = "";
-        Usuarios login;
-        login = this.usuariosFacade.verificarUsuario(this.usuario);
-           if(login != null) {
-               ruta = "privado/trabajador/vistaTrabajador";
-           } else {
-               ruta = "error";
-           }
-    return ruta;
-    }
-    
 }

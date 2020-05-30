@@ -1,7 +1,7 @@
 package Controller;
 
-import EJB.JugueteFacadeLocal;
-import Entity.Juguete;
+import EJB.MaterialFacadeLocal;
+import Entity.Material;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -13,40 +13,39 @@ import javax.faces.context.FacesContext;
 
 @ManagedBean
 @SessionScoped
-public class managedJuguete implements Serializable{
+public class MaterialController implements Serializable{
  
     @EJB
-    private JugueteFacadeLocal jugueteFacade;
-    private List<Juguete> listaJuguete;
-    private Juguete juguete;
+    private MaterialFacadeLocal materialFacade;
+    private List<Material> listaMaterial;
+    private Material material;
     String mensaje = "";
 
-    public List<Juguete> getListaJuguete() {
-        this.listaJuguete = this.jugueteFacade.findAll();
-        return listaJuguete;
+    public List<Material> getListaMaterial() {
+        this.listaMaterial = this.materialFacade.findAll();
+        return listaMaterial;
     }
 
-    public void setListaJuguete(List<Juguete> listaJuguete) {
-        this.listaJuguete = listaJuguete;
+    public void setListaMaterial(List<Material> listaMaterial) {
+        this.listaMaterial = listaMaterial;
     }
 
-    public Juguete getJuguete() {
-        return juguete;
+    public Material getMaterial() {
+        return material;
     }
 
-    public void setJuguete(Juguete juguete) {
-        this.juguete = juguete;
+    public void setMaterial(Material material) {
+        this.material = material;
     }
     
     @PostConstruct
     public void init() {
-        this.juguete = new Juguete();
+        this.material = new Material();
     }
-    
     public void guardar(){
         try {
-            this.jugueteFacade.create(juguete);
-            this.juguete = new Juguete();
+            this.materialFacade.create(material);
+            this.material = new Material();
             this.mensaje = "Almacenado Con exito";
         } catch (Exception e) {
             e.printStackTrace();
@@ -58,8 +57,8 @@ public class managedJuguete implements Serializable{
     
     public void actualizar(){
         try {
-            this.jugueteFacade.edit(juguete);
-            this.juguete = new Juguete();
+            this.materialFacade.edit(material);
+            this.material = new Material();
             this.mensaje = "Actualizado Con exito";
         } catch (Exception e) {
             e.printStackTrace();
@@ -68,10 +67,10 @@ public class managedJuguete implements Serializable{
         FacesMessage mens = new FacesMessage(this.mensaje);
         FacesContext.getCurrentInstance().addMessage(null, mens);
     }
-    public void eliminar(Juguete c){
+    public void eliminar(Material c){
         try {
-            this.jugueteFacade.remove(c);
-            this.juguete = new Juguete();
+            this.materialFacade.remove(c);
+            this.material = new Material();
             this.mensaje = "Eliminado Con exito";
         } catch (Exception e) {
             e.printStackTrace();
@@ -80,11 +79,11 @@ public class managedJuguete implements Serializable{
         FacesMessage mens = new FacesMessage(this.mensaje);
         FacesContext.getCurrentInstance().addMessage(null, mens);
     }
-    public void cargarID(Juguete c){
-        this.juguete = c;
+    public void cargarID(Material c){
+        this.material = c;
     }
     public void limpiar(){
-        this.juguete = new Juguete();
+        this.material = new Material();
     }
     
 }

@@ -36,6 +36,12 @@ public class Usuarios implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "UltimaConexion")
     private Date ultimaConexion;
+    @JoinColumn(name = "IdPersona")
+    @ManyToOne
+    private Persona persona;
+    @JoinColumn(name = "IdRol")
+    @ManyToOne
+    private Roles rol;
 
     @Override
     public int hashCode() {
@@ -98,5 +104,22 @@ public class Usuarios implements Serializable {
     public void setUltimaConexion(Date ultimaConexion) {
         this.ultimaConexion = ultimaConexion;
     }
+
+    public Persona getPersona() {
+        return persona;
+    }
+
+    public void setPersona(Persona persona) {
+        this.persona = persona;
+    }
+
+    public Roles getRol() {
+        return rol;
+    }
+
+    public void setRol(Roles rol) {
+        this.rol = rol;
+    }
+    
     
 }
