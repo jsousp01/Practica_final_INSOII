@@ -27,13 +27,11 @@ public class Tareas implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idTarea;
-    @Column(name = "IdJuguete")
-    private String idJuguete;
-    @Column(name = "NombreJuguete")
-    private String nombreJuguete;
-
+    @JoinColumn(name="IdJuguete")
+    @ManyToOne
+    private Juguete idJuguete;
     @Column(name = "Cantidad")
-    private String cantidad;
+    private int cantidad;
     @JoinColumn(name = "IdPersona")
     @ManyToOne
     private Persona persona;
@@ -54,29 +52,22 @@ public class Tareas implements Serializable {
         this.idTarea = idTarea;
     }
 
-    public String getNombreJuguete() {
-        return nombreJuguete;
-    }
-
-    public void setNombreJuguete(String nombreJuguete) {
-        this.nombreJuguete = nombreJuguete;
-    }
-
-    public String getCantidad() {
+    public int getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(String cantidad) {
+    public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
 
-    public String getIdJuguete() {
+    public Juguete getIdJuguete() {
         return idJuguete;
     }
 
-    public void setIdJuguete(String idJuguete) {
+    public void setIdJuguete(Juguete idJuguete) {
         this.idJuguete = idJuguete;
     }
+
 
     @Override
     public int hashCode() {

@@ -6,9 +6,12 @@
 package EJB;
 
 import Entity.Juguete;
+import Entity.Material;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -27,6 +30,16 @@ public class JugueteFacade extends AbstractFacade<Juguete> implements JugueteFac
 
     public JugueteFacade() {
         super(Juguete.class);
+    }
+    
+    
+    @Override
+    public List<Material> materialesAsociados(Juguete idJug) {
+        String consulta = "SELECT u FROM Material u WHERE u.idJuguete.idJuguete=?1";
+        Query query = em.createQuery(consulta);
+        query.setParameter(1, idJug.getIdJuguete());
+        List<Material> lista = query.getResultList();
+        return lista;
     }
     
 }
