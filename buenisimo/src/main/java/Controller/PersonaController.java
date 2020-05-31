@@ -6,7 +6,9 @@
 package Controller;
 
 import EJB.PersonaFacadeLocal;
+import EJB.UsuariosFacadeLocal;
 import Entity.Persona;
+import Entity.Usuarios;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -26,12 +28,24 @@ public class PersonaController implements Serializable{
     
     @EJB
     private PersonaFacadeLocal personaFacade;
+    @EJB
+    private UsuariosFacadeLocal usuariosFacade;
     private List<Persona> listaPersona;
+    private List<Usuarios> listaUsuarios;
     private Persona persona;
     String mensaje = "";
 
     public List<Persona> getListaPersona() {
         this.listaPersona = this.personaFacade.findAll();
+        return listaPersona;
+    }
+    
+        public List<Persona> getListaTrabajadores()  {
+        this.listaUsuarios = this.personaFacade.findTrabajadores(2);
+        this.listaPersona.clear();
+        for(int i = 0; i < this.listaUsuarios.size(); i++) {
+            this.listaPersona.add(this.listaUsuarios.get(i).getPersona());
+        }
         return listaPersona;
     }
 
@@ -80,6 +94,12 @@ public class PersonaController implements Serializable{
     }
     public void eliminar(Persona c){
         try {
+            List<Usuarios> lista = this.personaFacade.usuariosAsociados(c);
+            Usuarios us;
+            for (int i = 0; i < lista.size(); i++) {
+                us = lista.get(i);
+                this.usuariosFacade.remove(us);
+            }
             this.personaFacade.remove(c);
             this.persona = new Persona();
             this.mensaje = "Eliminado Con exito";

@@ -5,6 +5,7 @@
  */
 package EJB;
 
+import Entity.Tareas;
 import Entity.Usuarios;
 import java.util.List;
 import javax.ejb.Local;
@@ -31,4 +32,6 @@ public interface UsuariosFacadeLocal {
     int count();
     
     Usuarios verificarUsuario(Usuarios us);
+    
+            
 }

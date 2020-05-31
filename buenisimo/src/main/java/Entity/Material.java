@@ -6,7 +6,6 @@
 package Entity;
 
 import java.io.Serializable;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,7 +31,7 @@ public class Material implements Serializable {
     @Column(name = "Cantidad")
     private int cantidad;
     @JoinColumn(name="IdJuguete")
-    @ManyToOne(cascade=CascadeType.PERSIST)
+    @ManyToOne
     private Juguete idJuguete;
 
     public int getIdMaterial() {

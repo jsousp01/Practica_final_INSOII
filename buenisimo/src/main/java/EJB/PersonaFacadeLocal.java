@@ -6,6 +6,8 @@
 package EJB;
 
 import Entity.Persona;
+import Entity.Roles;
+import Entity.Usuarios;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -29,5 +31,9 @@ public interface PersonaFacadeLocal {
     List<Persona> findRange(int[] range);
 
     int count();
-    
+
+    List<Usuarios> findTrabajadores(int idRol);
+
+    public List<Usuarios> usuariosAsociados(Persona idPersona);
+
 }

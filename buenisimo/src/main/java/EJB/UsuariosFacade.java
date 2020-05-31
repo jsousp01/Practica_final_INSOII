@@ -5,9 +5,11 @@
  */
 package EJB;
 
+import Entity.Tareas;
 import Entity.Usuarios;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -42,7 +44,9 @@ public class UsuariosFacade extends AbstractFacade<Usuarios> implements Usuarios
         if (!lista.isEmpty()) {
             usuario = lista.get(0);
         }
+        
         return usuario;
     }
+
 
 }

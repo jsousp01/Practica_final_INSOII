@@ -6,6 +6,7 @@
 package EJB;
 
 import Entity.Juguete;
+import Entity.Material;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -29,5 +30,7 @@ public interface JugueteFacadeLocal {
     List<Juguete> findRange(int[] range);
 
     int count();
+    
+    public List<Material> materialesAsociados(Juguete idJug);
     
 }

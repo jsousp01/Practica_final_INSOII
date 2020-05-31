@@ -5,7 +5,10 @@
  */
 package EJB;
 
+import Entity.Juguete;
+import Entity.Material;
 import Entity.Tareas;
+import Entity.Usuarios;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -29,5 +32,7 @@ public interface TareasFacadeLocal {
     List<Tareas> findRange(int[] range);
 
     int count();
+    
+    public List<Tareas> tareasAsignadas(Usuarios us);
     
 }

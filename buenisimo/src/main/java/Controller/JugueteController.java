@@ -1,7 +1,9 @@
 package Controller;
 
 import EJB.JugueteFacadeLocal;
+import EJB.MaterialFacadeLocal;
 import Entity.Juguete;
+import Entity.Material;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -13,10 +15,12 @@ import javax.faces.context.FacesContext;
 
 @ManagedBean
 @SessionScoped
-public class JugueteController implements Serializable{
- 
+public class JugueteController implements Serializable {
+
     @EJB
     private JugueteFacadeLocal jugueteFacade;
+    @EJB
+    private MaterialFacadeLocal materialFacade;
     private List<Juguete> listaJuguete;
     private Juguete juguete;
     String mensaje = "";
@@ -37,13 +41,13 @@ public class JugueteController implements Serializable{
     public void setJuguete(Juguete juguete) {
         this.juguete = juguete;
     }
-    
+
     @PostConstruct
     public void init() {
         this.juguete = new Juguete();
     }
-    
-    public void guardar(){
+
+    public void guardar() {
         try {
             this.jugueteFacade.create(juguete);
             this.juguete = new Juguete();
@@ -55,9 +59,10 @@ public class JugueteController implements Serializable{
         FacesMessage mens = new FacesMessage(this.mensaje);
         FacesContext.getCurrentInstance().addMessage(null, mens);
     }
-    
-    public void actualizar(){
+
+    public void distribuir(int cantidad, int idJuguete) {
         try {
+            this.juguete.setCantidad(this.juguete.getCantidad() - cantidad);
             this.jugueteFacade.edit(juguete);
             this.juguete = new Juguete();
             this.mensaje = "Actualizado Con exito";
@@ -68,8 +73,15 @@ public class JugueteController implements Serializable{
         FacesMessage mens = new FacesMessage(this.mensaje);
         FacesContext.getCurrentInstance().addMessage(null, mens);
     }
-    public void eliminar(Juguete c){
+
+    public void eliminar(Juguete c) {
         try {
+            List<Material> lista = this.jugueteFacade.materialesAsociados(c);
+            Material mat;
+            for (int i = 0; i < lista.size(); i++) {
+                mat = lista.get(i);
+                this.materialFacade.remove(mat);
+            }
             this.jugueteFacade.remove(c);
             this.juguete = new Juguete();
             this.mensaje = "Eliminado Con exito";
@@ -78,13 +90,19 @@ public class JugueteController implements Serializable{
             this.mensaje = "Error : " + e.getMessage();
         }
         FacesMessage mens = new FacesMessage(this.mensaje);
-        FacesContext.getCurrentInstance().addMessage(null, mens);
+
+        FacesContext.getCurrentInstance()
+                .addMessage(null, mens);
     }
-    public void cargarID(Juguete c){
+
+    public void cargarID(Juguete c) {
         this.juguete = c;
+        System.out.println(c.getIdJuguete() + "  asnfdoudonfanoinfoasd");
+        
     }
-    public void limpiar(){
+
+    public void limpiar() {
         this.juguete = new Juguete();
     }
-    
+
 }
